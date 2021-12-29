@@ -164,10 +164,6 @@ class TaskController extends Controller
         return $this->render('statdetailday', ['dataProvider' => $provider,]);
     }
 
-    public function actionDelete()
-    {
-    }
-
     function date_sort($a, $b)
     {
         return strtotime($a) - strtotime($b);
@@ -240,6 +236,15 @@ class TaskController extends Controller
         }
     }
 
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        $category_redirect = $model->category_id;
+        $model->delete();
+        Yii::$app->session->setFlash('success', 'Задача удалена');
+
+        return $this->redirect(['category/view', 'id' => $category_redirect]);        
+    }
 
     public function beforeAction($action)
     {

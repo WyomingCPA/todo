@@ -89,15 +89,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     [
       'class' => 'yii\grid\ActionColumn',
-      'template' => '{update_task}',
+      'template' => '{update_task} {delete_task}',
       'buttons' => [
         'update_task' => function ($url, $model, $key) {
           return Html::a('<i class="fas fa-pen"></i>', $url);
+        },
+        'delete_task' => function ($url, $model, $key) {
+          return Html::a('<i class="fas fa-trash"></i>', $url);
         }
       ],
       'urlCreator' => function ($action, $model, $key, $index) {
         if ($action === 'update_task') {
           return Url::to(['task/update', 'id' => $model->id]);
+        }
+        if ($action === 'delete_task') {
+          return Url::to(['task/delete', 'id' => $model->id]);
         }
       }
     ],
