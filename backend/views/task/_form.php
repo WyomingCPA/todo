@@ -3,6 +3,7 @@
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Category;
 use dosamigos\tinymce\TinyMce;
 
 /* @var $this yii\web\View */
@@ -10,10 +11,16 @@ use dosamigos\tinymce\TinyMce;
 /* @var $categories common\models\Category[] */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<?php
+    $items = Category::find()->select(['title', 'id'])->indexBy('id')->column();
+    $params = [
+        'prompt' => 'Выберите категорию...'
+    ];
+?>
 <div class="category-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'category')->dropDownList($items, $params) ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => 1000]); ?>
     <?= $form->field($model, 'description')->widget(TinyMce::class, [
         'options' => ['rows' => 30],

@@ -49,8 +49,8 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label' => 'Смотреть задачи', 'url' => ['/category/index']];
         $menuItems[] = ['label' => 'Категорий', 'url' => ['/category/list']];
-        $menuItems[] = ['label' => 'Добавить задачу', 'url' => ['/task/createtask']];
-        $menuItems[] = ['label' => 'Warrning', 'url' => ['/task/warrningtask']];
+        $menuItems[] = ['label' => 'Добавить задачу', 'url' => ['/task/create-task']];
+        $menuItems[] = ['label' => 'Warrning', 'url' => ['/task/warrning-task']];
         $menuItems[] = ['label' => 'Статистика', 'url' => ['/task/statistic']];
         //$menuItems[] = '<li>'
         //    . Html::beginForm(['/site/logout'], 'post')

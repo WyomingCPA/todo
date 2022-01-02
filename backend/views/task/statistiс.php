@@ -20,7 +20,7 @@ use yii\grid\GridView;
                 'label' => 'Data',
                 'format' => 'raw',
                 'value' => function ($data) {
-                    return Html::a($data['data'], 'statdetailday?date=' . $data['data']);
+                    return Html::a($data['data'], 'stat-detail-day?date=' . $data['data']);
                 },
             ],
             'count',

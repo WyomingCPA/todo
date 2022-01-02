@@ -22,7 +22,7 @@ class TaskController extends Controller
         $model = TodoForm::findOne($task_id);
         return $this->render('detail', ['model' => $model,]);
     }
-    public function actionCreatetask()
+    public function actionCreateTask()
     {
         $model = new TodoForm();
 
@@ -117,11 +117,10 @@ class TaskController extends Controller
 
         $aim = 15 - (int) $statistic;
         Yii::$app->session->setFlash('success', 'Осталось выполнить ' . $aim . ' задач');
-
         return $this->redirect(['category/view', 'id' => $category_redirect]);
     }
 
-    public function actionWarrningtask()
+    public function actionWarrningTask()
     {
         $time_from = strtotime('-10 day', time());
         $delta_from = date('Y-m-d H:i:s', $time_from);
@@ -144,7 +143,7 @@ class TaskController extends Controller
         ]);
     }
 
-    public function actionStatdetailday($date)
+    public function actionStatDetailDay($date)
     {
         $query = TodoForm::find()
             ->andWhere(['like', 'last_update', $date])
@@ -218,16 +217,24 @@ class TaskController extends Controller
         ]);
     }
 
-    public function actionVuetest()
-    {
-        return $this->render('vuetest');
-    }
-
     public function actionUpdate($id)
     {
         $categories = Category::find()->all();
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            $formdata = Yii::$app->request->post();
+            $category = Category::find()->where(['id' => $formdata['TodoForm']['category']])->one();
+            $title = $formdata['TodoForm']['title'];
+            $loop = $formdata['TodoForm']['loop'];
+
+            $model->title = $title;
+            $model->description = $formdata['TodoForm']['description'];
+            $model->done = false;
+            $model->last_update = new Expression('NOW()');
+            $model->loop = $loop;
+            $model->category_id = $category->id;
+            $model->save(false);
             return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('update', [
