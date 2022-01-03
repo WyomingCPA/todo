@@ -45,7 +45,6 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'task/statdetailday/<date:\d{4}-\d{2}-\d{2}>' => 'task/statdetailday',
-                'globaltask/zeroing/<id:\d+>' => 'globaltask/zeroing',
             ],
         ],
 

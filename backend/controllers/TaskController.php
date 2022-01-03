@@ -46,7 +46,7 @@ class TaskController extends Controller
                     $model->loop = $loop;
                     $model->category_id = $category->id;
                     $model->save(false);
-                    return $this->redirect(['task/createtask',]);
+                    return $this->redirect(['task/create-task',]);
                 }
             }
         }
